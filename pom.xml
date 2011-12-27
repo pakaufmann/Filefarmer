@@ -5,4 +5,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>FileFarmer</name>
+  <modules>
+  	<module>FileFarmer-Core</module>
+  	<module>FileFarmer-Webclient</module>
+  </modules>
 </project>

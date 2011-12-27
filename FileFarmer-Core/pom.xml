@@ -253,6 +253,20 @@
                     <ignore />
                   </action>
                 </pluginExecution>
+                <pluginExecution>
+                	<pluginExecutionFilter>
+                		<groupId>org.scala-tools</groupId>
+                		<artifactId>maven-scala-plugin</artifactId>
+                		<versionRange>[2.15.0,)</versionRange>
+                		<goals>
+                			<goal>testCompile</goal>
+                			<goal>compile</goal>
+                		</goals>
+                	</pluginExecutionFilter>
+                	<action>
+                		<ignore></ignore>
+                	</action>
+                </pluginExecution>
               </pluginExecutions>
             </lifecycleMappingMetadata>
           </configuration>

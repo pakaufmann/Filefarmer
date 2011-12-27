@@ -1,0 +1,272 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ch.filefarmer</groupId>
+  <artifactId>FileFarmer-Core</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>${project.artifactId}</name>
+  <inceptionYear>2010</inceptionYear>
+  <licenses>
+    <license>
+      <name>My License</name>
+      <url>http://....</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <properties>
+    <maven.compiler.source>1.5</maven.compiler.source>
+    <maven.compiler.target>1.5</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <scala.version>2.9.0-1</scala.version>
+  </properties>
+  
+  <repositories>
+    <repository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </repository>
+    <repository>
+	  <id>Akka</id>
+	  <name>Akka Maven2 Repository</name>
+	  <url>http://akka.io/repository/</url>
+	</repository>
+	<repository>
+  		<id>Java.net</id>
+  		<name>Java.net Repository</name>
+  		<url>http://download.java.net/maven/</url>
+  	</repository>
+  	<repository>
+      <id>scala-tools.org_snapshots</id>
+      <name>Scala-Tools Maven2 Snapshots Repository</name>
+      <url>http://scala-tools.org/repo-snapshots</url>
+    </repository>
+    <repository>
+        <id>novusRels</id>
+        <name>repo.novus rels</name>
+        <url>http://repo.novus.com/snapshots/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </pluginRepository>
+  </pluginRepositories>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+    <dependency>
+	  <groupId>com.google.inject</groupId>
+	  <artifactId>guice</artifactId>
+	  <version>2.0</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.google.inject.extensions</groupId>
+	  <artifactId>guice-multibindings</artifactId>
+	  <version>2.0</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.google.inject.extensions</groupId>
+	  <artifactId>guice-assisted-inject</artifactId>
+	  <version>2.0</version>
+	</dependency>
+	<dependency>
+     <groupId>com.mongodb.casbah</groupId>
+     <artifactId>casbah_2.9.1</artifactId>
+     <version>2.1.5-1</version>
+     <type>pom</type>
+    </dependency>
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.16</version>
+	</dependency>
+	<dependency>
+	  <groupId>se.scalablesolutions.akka</groupId>
+	  <artifactId>akka-actor</artifactId>
+	  <version>1.1.2</version>
+	</dependency>
+	<dependency>
+	  <groupId>se.scalablesolutions.akka</groupId>
+	  <artifactId>akka-typed-actor</artifactId>
+	  <version>1.1.2</version>
+	</dependency>
+	<dependency>
+	  <groupId>se.scalablesolutions.akka</groupId>
+	  <artifactId>akka-remote</artifactId>
+	  <version>1.1.2</version>
+	</dependency>
+	<dependency>
+	  <groupId>se.scalablesolutions.akka</groupId>
+	  <artifactId>akka-testkit</artifactId>
+	  <version>1.1.2</version>
+	</dependency>
+	 <dependency>
+	 	<groupId>im4java</groupId>
+	 	<artifactId>im4java</artifactId>
+	 	<version>1.2.0</version>
+	 </dependency>
+	 <dependency>
+    <groupId>com.novus</groupId>
+    <artifactId>salat-core_2.9.0-1</artifactId>
+    <version>0.0.8-SNAPSHOT</version>
+   </dependency>
+	
+    <!-- Test -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-tools.testing</groupId>
+      <artifactId>specs_${scala.version}</artifactId>
+      <version>1.6.8</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_2.9.1</artifactId>
+      <version>1.6.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalamock</groupId>
+      <artifactId>scalamock-scalatest-support_2.9.1</artifactId>
+      <version>2.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <version>2.15.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <args>
+                <arg>-make:transitive</arg>
+                <arg>-dependencyfile</arg>
+                <arg>${project.build.directory}/.scala_dependencies</arg>
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <useFile>false</useFile>
+          <disableXmlReport>true</disableXmlReport>
+          <!-- If you have classpath issue like NoDefClassError,... -->
+          <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+          <includes>
+            <include>**/*Tests.*</include>
+            <include>**/*Suite.*</include>
+          </includes>
+        </configuration>
+      </plugin>
+      
+      
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>false</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+                        <mainClass>theMainClass</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+      
+      
+    </plugins>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <versionRange>[2.0,)</versionRange>
+                    <goals>
+                      <goal>copy-dependencies</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
+    
+    
+    
+    
+    
+    
+  </build>
+  
+  <description>Filefarmer Core</description>
+</project>

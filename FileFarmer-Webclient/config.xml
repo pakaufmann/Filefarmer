@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <!-- Database -->
+  <mongo host="127.0.0.1" port="27017" database="filefarmerDb"></mongo>
+  <!-- Temporary folder for the physical files -->
+  <tempFolder folder="temp"></tempFolder>
+  <!-- All watchers and their type -->
+  <watchers>
+    <watch type="folder" watchOn="import"></watch>
+  </watchers>
+  <dispatchers>
+    <host name="localhost" port="10000" numberOfDispatchers="5"></host>
+  </dispatchers>
+  <!-- The default table in the archive if no sorting is found -->
+  <defaultArchive name="unordered"></defaultArchive>
+</config>

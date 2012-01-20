@@ -1,0 +1,26 @@
+@(fileSet: Set[ch.filefarmer.poso.ArchiveFile])
+
+<table id="fileTable">
+    <thead>
+        <tr>
+            <td>
+                @Messages("filename")
+            </td>
+            <td>
+                @Messages("fullText")
+            </td>
+            <td>
+                @Messages("creator")
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+		@for(file <- fileSet.toList) {
+		    <tr>
+		        <td>@file.fileName</td>
+		        <td>@file.fullText</td>
+		        <td>@file.creator</td>
+		    </tr>
+		}
+    </tbody>
+</table>

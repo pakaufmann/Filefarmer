@@ -1,0 +1,30 @@
+@(title:String = "FileFarmer", archives: Option[ch.filefarmer.poso.ArchiveTree],
+  fileSet: Set[ch.filefarmer.poso.ArchiveFile],
+  selectedArchive: String)
+
+@global.main(title) {
+    <div id="navigation" class="part">
+        <h1>@Messages("navigation")</h1>
+        
+        <h2>@Messages("archives")</h2>
+        <div id="archiveTree" class="subpart">
+            @if(archives.isDefined) {
+                @tree(archives.get, "archives", selectedArchive)
+            } else {
+                No archives defined
+            }
+        </div>
+    </div>
+	<div id="main">
+        <ul>
+            <li><a href="#files">@Messages("files")</a></li>
+            <li><a href="#search">@Messages("search")</a></li>
+        </ul>
+        
+        <div id="files">
+            @files(fileSet)
+        </div>
+        <div id="search">
+        </div>
+    </div>
+}

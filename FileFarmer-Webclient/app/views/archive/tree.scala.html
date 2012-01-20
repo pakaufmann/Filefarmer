@@ -1,0 +1,16 @@
+@(archives: ch.filefarmer.poso.ArchiveTree, treeId: String, selected: String, level:Int = 1)
+
+<ul id="@treeId">
+@for(archive <- archives.archives) {
+    <li id="archive-@archive._1.identity">
+        @if(selected == archive._1.identity) {
+            <a href="@archive._1.identity" class="selected">@archive._1.name</a>
+        } else {
+            <a href="@archive._1.identity" class="">@archive._1.name</a>
+        }
+        @if(archive._2.isDefined) {
+            @tree(archive._2.get, "level-" + level, selected, level+1)
+        }
+    </li>
+}
+</ul>

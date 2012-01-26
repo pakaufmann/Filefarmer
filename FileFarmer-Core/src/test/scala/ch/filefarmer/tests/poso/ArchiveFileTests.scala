@@ -16,7 +16,7 @@ class ArchiveFileTests extends BaseTestClass {
 			file.archive = archive
 			
 			file.archive should be(archive)
-			file.archiveId should be (archive.id)
+			file.archiveIdentity should be (archive.identity)
 		}
 		it("should preserve the fields if they already exist") {
 			val file = new ArchiveFile(_fields = collection.mutable.Map[String, String]("field1" -> "f1", "field2" -> "f2"))
@@ -28,9 +28,10 @@ class ArchiveFileTests extends BaseTestClass {
 			file.fields should contain key("newField")
 			file.fields should not(contain key("f2"))
 		}
-		it("should return the correct extension") {
-			val file = new ArchiveFile(originalFile = new File("test.txt"))
+		it("should return the fileName and the correct extension") {
+			val file = new ArchiveFile(_originalFile = new File("test.txt"))
 			
+			file.fileName should be("test.txt")
 			file.getExtension() should be("txt")
 		}
 	}

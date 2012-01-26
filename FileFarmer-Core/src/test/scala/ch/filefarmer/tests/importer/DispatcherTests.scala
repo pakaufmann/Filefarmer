@@ -50,7 +50,7 @@ class DispatcherTests extends BaseTestClass {
 			  action2 expects 'execute returning true
 			}
 			
-			dispatcher ! new ArchiveFile(originalFile = testFile)
+			dispatcher ! new ArchiveFile(_originalFile = testFile)
 		}
 		
 		it("should stop when an action returns false") {
@@ -75,7 +75,7 @@ class DispatcherTests extends BaseTestClass {
 			  action2 expects 'execute returning true never
 			}
 			
-			dispatcher ! new ArchiveFile(originalFile = testFile)
+			dispatcher ! new ArchiveFile(_originalFile = testFile)
 		}
 	}
 }

@@ -14,7 +14,7 @@ import com.mongodb.casbah.gridfs.GridFS
 class ArchiveFileRepositoryTests extends BaseRepositoryTestClass {
 	val wfRep = mock[IWorkflowRepository]
   
-	val f = new ArchiveFile(originalFile = new File(currentPath + "/testFiles/test.png"),
+	val f = new ArchiveFile(_originalFile = new File(currentPath + "/testFiles/test.png"),
 							tiffFile = new File(currentPath + "/testFiles/test.tif"))
 	
 	describe("the archive file repository") {
@@ -45,6 +45,33 @@ class ArchiveFileRepositoryTests extends BaseRepositoryTestClass {
 			
 			val ret = rep.getFile(new ObjectId().toString)
 			ret should be(None)
+		}
+		it("should return a set of files for the given archive") {
+			conn stubs 'connection returning mongoDB
+			val rep = new ArchiveFileRepository(conn, wfRep)
+			
+			//delete all files
+			mongoDB("files").remove(MongoDBObject())
+			//add files
+			rep.addFile(new ArchiveFile(_archiveIdentity = "testArchive", fullText = "text1", _originalFile = new File(currentPath + "/testFiles/test.png"), tiffFile = new File(currentPath + "/testFiles/test.tif")))
+			rep.addFile(new ArchiveFile(_archiveIdentity = "testArchive", _originalFile = new File(currentPath + "/testFiles/test.png"), tiffFile = new File(currentPath + "/testFiles/test.tif")))
+			rep.addFile(new ArchiveFile(_archiveIdentity = "testArchive", _originalFile = new File(currentPath + "/testFiles/test.png"), tiffFile = new File(currentPath + "/testFiles/test.tif")))
+			rep.addFile(new ArchiveFile(_archiveIdentity = "testArchive", _originalFile = new File(currentPath + "/testFiles/test.png"), tiffFile = new File(currentPath + "/testFiles/test.tif")))
+			rep.addFile(new ArchiveFile(_archiveIdentity = "testArchive", _originalFile = new File(currentPath + "/testFiles/test.png"), tiffFile = new File(currentPath + "/testFiles/test.tif")))
+			
+			val ret = rep.getFilesForArchive("testArchive")
+			ret.count(_ == null || true) should be(5)
+			ret.find(_.fullText == "text1") should be('defined)
+		}
+		it("should return an empty set if no files are found") {
+			conn stubs 'connection returning mongoDB
+			val rep = new ArchiveFileRepository(conn, wfRep)
+			
+			//delete all files
+			mongoDB("files").remove(MongoDBObject())
+			
+			val ret = rep.getFilesForArchive("testArchive")
+			ret.count(_ != null) should be(0)
 		}
 	}
 }

@@ -31,7 +31,7 @@ class SortDefinitionTests extends BaseTestClass {
     	  true
       })
       
-      val retVal = sortDefinition.checkFile(new ArchiveFile(originalFile = new File(".")))
+      val retVal = sortDefinition.checkFile(new ArchiveFile())
       
       calledFunc should be(true)
       retVal should be(true)
@@ -43,7 +43,7 @@ class SortDefinitionTests extends BaseTestClass {
     	  false
       })
       
-      val retVal = sortDefinition.checkFile(new ArchiveFile(originalFile = new File(".")))
+      val retVal = sortDefinition.checkFile(new ArchiveFile())
       
       calledFunc should be(true)
       retVal should be(false)

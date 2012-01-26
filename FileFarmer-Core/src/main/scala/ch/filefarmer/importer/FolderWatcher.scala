@@ -49,7 +49,7 @@ class FolderWatcher @Inject()(@Named("dispatchDistributor")val dispatchDistribut
 	        val file = Paths.get(watchOn).resolve(ev.context()).toFile()
 	        
 	        logger.info("got file: " + file.getCanonicalPath() + " in folder " + watchOn)
-	        dispatchDistributor ! new ArchiveFile(originalFile = file)
+	        dispatchDistributor ! new ArchiveFile(_originalFile = file, creator = "none")
 	      }
 	      
 	      if(!key.reset()) {

@@ -8,22 +8,30 @@ import org.bson.types.ObjectId
  * a file from the archive
  */
 case class ArchiveFile(@Key("_id")val id: ObjectId = new ObjectId(),
-    				   @Ignore var originalFile: File = null,
+    				   @Ignore var _originalFile: File = null,
     				   @Ignore var tiffFile: File = null,
+    				   var fileName:String = "",
     				   var fullText: String = "",
-    				   @Key("archiveId")var _archiveId: ObjectId = null,
+    				   var creator: String = "",
+    				   @Key("archiveIdentity")var _archiveIdentity: String = "",
     				   @Ignore var workflows:ListBuffer[Workflow] = ListBuffer[Workflow](),
     				   private var _fields:collection.mutable.Map[String, String] = collection.mutable.Map[String, String]()) {
 	
-	var _archive: Archive = null
+	if(_originalFile != null) {
+		fileName = _originalFile.getName
+	}
 	
-	def archiveId = _archiveId
+	def originalFile = _originalFile
+	def originalFile_=(file:File) = {
+	  	fileName = file.getName
+		_originalFile = file
+	}
+	
+	def archiveIdentity = _archiveIdentity
 	def fields = _fields
 	
-	def archive = _archive
-	def archive_=(archive:Archive) = {
-		_archive = archive
-		_archiveId = archive.id
+	def updateArchive(archive:Archive) = {
+		_archiveIdentity = archive.identity
 		val newFields = collection.mutable.Map((archive.fields zip Stream.continually("") toMap).toSeq: _*);
 		_fields.foreach((f) => {
 			if(newFields.contains(f._1)) {
@@ -34,9 +42,7 @@ case class ArchiveFile(@Key("_id")val id: ObjectId = new ObjectId(),
 	}
 	
 	def getExtension() = {
-		val fileName = originalFile.getName()
 		val lastDot = fileName.lastIndexOf(".")
 		fileName.substring(lastDot + 1)
-	} 
-	def fileName = originalFile.getName()
+	}
 }

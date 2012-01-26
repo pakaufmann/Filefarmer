@@ -1,4 +1,0 @@
-Special dependencies:
-im4java:
-
-tesseract

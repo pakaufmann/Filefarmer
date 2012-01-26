@@ -20,4 +20,6 @@ trait IArchiveFileRepository {
 	 * @return a file if one is found, else nothing
 	 */
 	def getFile(id:String):Option[ArchiveFile]
+	
+	def getFilesForArchive(identity:String, numberOfFiles: Int = 50): Set[ArchiveFile]
 }

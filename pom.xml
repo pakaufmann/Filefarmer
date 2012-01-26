@@ -2,11 +2,70 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ch.filefarmer</groupId>
   <artifactId>FileFarmer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>FileFarmer</name>
+  
+  
   <modules>
   	<module>FileFarmer-Core</module>
   	<module>FileFarmer-Webclient</module>
   </modules>
+  <version>0.1</version>
+  
+  <repositories>
+    <repository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </repository>
+    <repository>
+	  <id>Akka</id>
+	  <name>Akka Maven2 Repository</name>
+	  <url>http://akka.io/repository/</url>
+	</repository>
+	<repository>
+  		<id>Java.net</id>
+  		<name>Java.net Repository</name>
+  		<url>http://download.java.net/maven/</url>
+  	</repository>
+  	<repository>
+      <id>scala-tools.org_snapshots</id>
+      <name>Scala-Tools Maven2 Snapshots Repository</name>
+      <url>http://scala-tools.org/repo-snapshots</url>
+    </repository>
+    <repository>
+        <id>novusRels</id>
+        <name>repo.novus rels</name>
+        <url>http://repo.novus.com/snapshots/</url>
+    </repository>
+  </repositories>
+  
+  <dependencies>
+  <!-- Test -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-tools.testing</groupId>
+      <artifactId>specs_2.9.1</artifactId>
+      <version>1.6.9</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_2.9.1</artifactId>
+      <version>1.6.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalamock</groupId>
+      <artifactId>scalamock-scalatest-support_2.9.1</artifactId>
+      <version>2.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
 </project>

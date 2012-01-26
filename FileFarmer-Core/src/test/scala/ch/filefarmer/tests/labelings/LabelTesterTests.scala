@@ -20,7 +20,7 @@ class LabelTesterTests extends BaseTestClass {
 			val c = Label archive 'test where(file => true)
 			
 			val a = new ArchiveFile()
-			a.archive = new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
+			a updateArchive new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
 			val d = t.testFile(a)
 			
 			d.get should be(c)
@@ -32,7 +32,7 @@ class LabelTesterTests extends BaseTestClass {
 			Label archive 'test2
 			
 			val a = new ArchiveFile()
-			a.archive = new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
+			a updateArchive new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
 			val d = t.testFile(a)
 			
 			d should be(None)
@@ -45,7 +45,7 @@ class LabelTesterTests extends BaseTestClass {
 			Label archive 'test where(file => true)
 			
 			val a = new ArchiveFile()
-			a.archive = new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
+			a updateArchive new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
 			val d = t.testFile(a)
 			
 			d.get should be(c)
@@ -57,7 +57,7 @@ class LabelTesterTests extends BaseTestClass {
 			val c = Label archive 'tEsT where(file => true)
 			
 			val a = new ArchiveFile()
-			a.archive = new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
+			a updateArchive new Archive(identity = "test", name = "test", fields = collection.mutable.Set[String]())
 			val d = t.testFile(a)
 			
 			d.get should be(c)

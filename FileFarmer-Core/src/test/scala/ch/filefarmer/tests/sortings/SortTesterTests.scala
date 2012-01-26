@@ -21,14 +21,14 @@ class SortTesterTests extends BaseTestClass {
 	    sortTester += def1
 	    sortTester += def2 
 	    
-	    val sortDefinition = sortTester.testFile(new ArchiveFile(originalFile = new File(".")))
+	    val sortDefinition = sortTester.testFile(new ArchiveFile(_originalFile = new File(".")))
 	    
 	    sortDefinition should be(Some(def2))
 	  }
 	  it("should return none if no sort definition was found") {
 	    val sortTester = new SortTester
 	    
-	    val sortDefinition = sortTester.testFile(new ArchiveFile(originalFile = new File(".")))
+	    val sortDefinition = sortTester.testFile(new ArchiveFile(_originalFile = new File(".")))
 	    
 	    sortDefinition should be(None)
 	  }

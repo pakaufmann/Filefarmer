@@ -2,7 +2,7 @@ package ch.filefarmer.repositories
 import com.google.inject.Inject
 import ch.filefarmer.database.connection.IConnection
 import com.mongodb.casbah.commons.MongoDBObject
-import ch.filefarmer.poso.Archive
+import ch.filefarmer.poso._
 import com.mongodb.casbah.Implicits._
 import ch.filefarmer.logging.Logging
 import com.novus.salat._
@@ -24,16 +24,16 @@ class ArchiveRepository@Inject()(val conn: IConnection) extends IArchiveReposito
 	
 	def addArchive(archive:Archive) = {
 		if(archive.identity == "") {
-			throw new Exception("no identity added")
+			throw new ArgumentInvalidException("no identity added")
 		}
 		if(archive.name == "") {
-			throw new Exception("no name added")
+			throw new ArgumentInvalidException("no name added")
 		}
 	  
 		getArchive(archive.identity) match {
 		  case Some(a) => {
 			  logger.error("archive with identity \"" + archive.identity + "\" already exists")
-			  throw new Exception("archive already exists")
+			  throw new DuplicateException("archive already exists")
 		  }
 		  case None => {
 			  val obj = grater[Archive].asDBObject(archive)
@@ -41,5 +41,24 @@ class ArchiveRepository@Inject()(val conn: IConnection) extends IArchiveReposito
 			  archiveConnection += obj
 		  }
 		}
+	}
+	
+	def getArchiveTree(parent:String = ""): Option[ArchiveTree] = {
+		var search = MongoDBObject("parentArchiveId" -> parent)
+		
+		val tree = new ArchiveTree()
+		
+		val results = archiveConnection.find(search)
+		
+		if(results.count != 0) {
+			for(res <- results) {
+				val archive = grater[Archive].asObject(res)
+				tree.archives += archive -> getArchiveTree(archive.identity)
+			}
+		} else {
+			return None
+		}
+		
+		Option(tree)
 	}
 }

@@ -21,7 +21,7 @@ class OCRTests extends BaseTestClass {
 		it("the text ocr should just read out simple text files") {
 			val textOCR = new TextOCR()
 			
-			val text = textOCR.doOCR(new ArchiveFile(originalFile = new File(currentPath + "/testFiles/test.txt")))
+			val text = textOCR.doOCR(new ArchiveFile(_originalFile = new File(currentPath + "/testFiles/test.txt")))
 			
 			text should be ("Test\nTest\nTest\nTest\nTest\n")
 		}
@@ -38,7 +38,7 @@ class OCRTests extends BaseTestClass {
 			}
 			
 			val standardOCR = new StandardOCR(settings)
-			val importFile = new ArchiveFile(originalFile = new File("."))
+			val importFile = new ArchiveFile(_originalFile = new File("."))
 			importFile.tiffFile = tiffFile
 			
 			val text = standardOCR.doOCR(importFile)

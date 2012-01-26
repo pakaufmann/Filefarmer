@@ -1,8 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>ch.filefarmer</groupId>
   <artifactId>FileFarmer-Core</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.1</version>
+  
   <name>${project.artifactId}</name>
   <inceptionYear>2010</inceptionYear>
   <licenses>
@@ -13,11 +15,17 @@
     </license>
   </licenses>
 
+  <parent>
+    <groupId>ch.filefarmer</groupId>
+    <artifactId>FileFarmer</artifactId>
+    <version>0.1</version>
+  </parent>
+
   <properties>
     <maven.compiler.source>1.5</maven.compiler.source>
     <maven.compiler.target>1.5</maven.compiler.target>
     <encoding>UTF-8</encoding>
-    <scala.version>2.9.0-1</scala.version>
+    <scala.version>2.9.1</scala.version>
   </properties>
   
   <repositories>
@@ -114,36 +122,11 @@
 	 	<version>1.2.0</version>
 	 </dependency>
 	 <dependency>
-    <groupId>com.novus</groupId>
-    <artifactId>salat-core_2.9.0-1</artifactId>
-    <version>0.0.8-SNAPSHOT</version>
-   </dependency>
+	    <groupId>com.novus</groupId>
+	    <artifactId>salat-core_2.9.0-1</artifactId>
+	    <version>0.0.8-SNAPSHOT</version>
+	   </dependency>
 	
-    <!-- Test -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.scala-tools.testing</groupId>
-      <artifactId>specs_${scala.version}</artifactId>
-      <version>1.6.8</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.9.1</artifactId>
-      <version>1.6.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.scalamock</groupId>
-      <artifactId>scalamock-scalatest-support_2.9.1</artifactId>
-      <version>2.1</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   
   <build>
@@ -222,15 +205,6 @@
       
       
     </plugins>
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <pluginManagement>
       <plugins>
         <plugin>
@@ -273,14 +247,5 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    
-    
-    
-    
-    
-    
-    
   </build>
-  
-  <description>Filefarmer Core</description>
 </project>

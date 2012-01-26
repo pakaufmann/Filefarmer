@@ -35,13 +35,13 @@ class ActionTests extends BaseTestClass {
 		  assert(file.exists)
 		  assert(tiffFile.exists)
 		  
-		  val importFile = new ArchiveFile(originalFile = file)
+		  val importFile = new ArchiveFile(_originalFile = file)
 		  importFile.tiffFile = tiffFile
 		  
 		  cleanupAction.execute(importFile)
 		  
-		  assert(!file.exists)
-		  assert(!tiffFile.exists)
+		  file.exists should be(false)
+		  tiffFile.exists should be(false)
 	  	}
 	  it("the convert action should load the appropriate converter") {
 		  val converters = new java.util.HashSet[IConverter]()
@@ -56,11 +56,11 @@ class ActionTests extends BaseTestClass {
 		  converters.add(converter2)
 		  
 		  val file = new File("test.pdf")
-		  val importFile = new ArchiveFile(originalFile = file)
+		  val importFile = new ArchiveFile(_originalFile = file)
 		  val file2 = new File("test.png")
-		  val importFile2 = new ArchiveFile(originalFile = file2)
+		  val importFile2 = new ArchiveFile(_originalFile = file2)
 		  val file3 = new File("test.impossible")
-		  val importFile3 = new ArchiveFile(originalFile = file3)
+		  val importFile3 = new ArchiveFile(_originalFile = file3)
 		  
 		  inSequence {
 			  converter1 expects 'convert withArgs(file) returning file
@@ -86,9 +86,9 @@ class ActionTests extends BaseTestClass {
 		  val ocrAction = new OCRAction(ocrEngines)
 		  
 		  val file = new File("test.txt")
-		  val importFile = new ArchiveFile(originalFile = file)
+		  val importFile = new ArchiveFile(_originalFile = file)
 		  val file2 = new File("test.png")
-		  val importFile2 = new ArchiveFile(originalFile = file2)
+		  val importFile2 = new ArchiveFile(_originalFile = file2)
 		  
 		  inSequence {
 			  ocr1 expects 'doOCR withArgs(importFile) returning "1"
@@ -101,7 +101,7 @@ class ActionTests extends BaseTestClass {
 	  }
 	  it("the save action should save the file into the database") {
 		  val importFileRepository = mock[IArchiveFileRepository]
-		  val importFile = new ArchiveFile(originalFile = new File("."))
+		  val importFile = new ArchiveFile(_originalFile = new File("."))
 		  val saveAction = new SaveAction(importFileRepository)
 		  
 		  inSequence {
@@ -114,7 +114,7 @@ class ActionTests extends BaseTestClass {
 		  val settings = mock[ISettings]
 		  val archive = mock[IArchiveRepository]
 		  val sortingAction = new SortingAction(sortTester, settings, archive)
-		  val importFile = new ArchiveFile(originalFile = new File("."))
+		  val importFile = new ArchiveFile(_originalFile = new File("."))
 		  Sort.sortTester = sortTester
 		  val sortDefinition = Sort to 'testArchive
 		  
@@ -126,14 +126,14 @@ class ActionTests extends BaseTestClass {
 		  
 		  val ret = sortingAction.execute(importFile)
 		  ret should be(true)
-		  importFile.archiveId should be(retArchive.id)
+		  importFile.archiveIdentity should be(retArchive.identity)
 	  }
 	  it("the sorting action should sort to the default archive if none is found") {
 		  val sortTester = mock[ISortTester]
 		  val settings = mock[ISettings]
 		  val archive = mock[IArchiveRepository]
 		  val sortingAction = new SortingAction(sortTester, settings, archive)
-		  val importFile = new ArchiveFile(originalFile = new File("."))
+		  val importFile = new ArchiveFile(_originalFile = new File("."))
 		  val sortDefinition = Sort to 'testArchive
 		  
 		  val retArchive = new Archive(identity = "default", name = "default", fields = scala.collection.mutable.Set[String]())
@@ -146,7 +146,7 @@ class ActionTests extends BaseTestClass {
 		  
 		  val ret = sortingAction.execute(importFile)
 		  ret should be(true)
-		  importFile.archiveId should be (retArchive.id)
+		  importFile.archiveIdentity should be (retArchive.identity)
 	  }
 	  it("the label action should label the archive correctly") {
 		  val labelTester = mock[ILabelTester]
@@ -170,7 +170,7 @@ class ActionTests extends BaseTestClass {
 		  val settings = mock[ISettings]
 		  val archive = mock[IArchiveRepository]
 		  val sortingAction = new SortingAction(sortTester, settings, archive)
-		  val importFile = new ArchiveFile(originalFile = new File("."))
+		  val importFile = new ArchiveFile(_originalFile = new File("."))
 		  val sortDefinition = Sort to 'testArchive
 		  
 		  inSequence {
@@ -184,7 +184,7 @@ class ActionTests extends BaseTestClass {
 	  it("the workflow action should add the workflows to the file") {
 		  val workflowTester = mock[IWorkflowTester]
 		  val workflowAction = new WorkflowAction(workflowTester)
-		  val importFile = new ArchiveFile(originalFile = new File("."))
+		  val importFile = new ArchiveFile(_originalFile = new File("."))
 		  
 		  val workflow1 = new Workflow(identity = "workflow1", groups = ListBuffer[String](), users = ListBuffer[String]())
 		  val workflow2 = new Workflow(identity = "workflow1", groups = ListBuffer[String](), users = ListBuffer[String]())

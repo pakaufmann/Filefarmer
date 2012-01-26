@@ -45,7 +45,6 @@ class CoreModule extends AbstractModule with ICoreModule {
   
   override def configure() = {
     setupCoreContent()
-    setupRepositories()
     setupPluginContent()
     bindPluginContent()
   }
@@ -58,7 +57,6 @@ class CoreModule extends AbstractModule with ICoreModule {
     bind(classOf[ICoreModule]).toInstance(this)
     bind(classOf[IWatchLoader]).to(classOf[WatchLoader]).in(Scopes.SINGLETON)
     bind(classOf[IDispatcher]).to(classOf[Dispatcher])
-    bind(classOf[IConnection]).to(classOf[MongoDbConnection]).in(Scopes.SINGLETON)
     bind(classOf[ISettings]).toInstance(XmlSettings)
     
     bind(classOf[ISort]).toInstance(Sort)
@@ -86,12 +84,6 @@ class CoreModule extends AbstractModule with ICoreModule {
     val ocrBinder = Multibinder.newSetBinder(binder(), classOf[IOCR])
     ocrBinder.addBinding().to(classOf[TextOCR])
     ocrBinder.addBinding().to(classOf[StandardOCR])
-  }
-  
-  private def setupRepositories() = {
-    bind(classOf[IArchiveFileRepository]).to(classOf[ArchiveFileRepository]).in(Scopes.SINGLETON)
-    bind(classOf[IArchiveRepository]).to(classOf[ArchiveRepository]).in(Scopes.SINGLETON)
-    bind(classOf[IWorkflowRepository]).to(classOf[WorkflowRepository]).in(Scopes.SINGLETON)
   }
   
   /**

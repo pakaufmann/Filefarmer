@@ -81,4 +81,10 @@ class ArchiveFileRepository@Inject()(val conn: IConnection, val workflowReposito
 		  	case None => None
 		}	
 	}
+	
+	def getFilesForArchive(identity:String, numberOfFiles: Int = 50): Set[ArchiveFile] = {
+		val q = MongoDBObject("archiveIdentity" -> identity)
+		
+		filesCollection.find(q).limit(numberOfFiles).map(grater[ArchiveFile].asObject(_)).toSet
+	}
 }

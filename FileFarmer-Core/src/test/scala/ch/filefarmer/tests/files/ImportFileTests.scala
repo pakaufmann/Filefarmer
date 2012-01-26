@@ -9,7 +9,7 @@ import org.scalatest.junit.JUnitRunner
 class ImportFileTests extends BaseTestClass {
 	describe("the base test class") {
 	  it("should contain various parameters") {
-	    val importFile = new ArchiveFile(originalFile = new File(currentPath + "/testFiles/test.png"))
+	    val importFile = new ArchiveFile(_originalFile = new File(currentPath + "/testFiles/test.png"))
 	    
 	    importFile.getExtension should be("png")
 	    importFile.fileName should be("test.png")

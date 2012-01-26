@@ -36,7 +36,7 @@ class SortingAction@Inject()(val sortTester:ISortTester, val settings: ISettings
 		 
 		 archiveRepository.getArchive(archive) match {
 		   case Some(archive) => {
-			   file.archive = archive
+			   file updateArchive archive
 			   true
 		   }
 		   case None => {

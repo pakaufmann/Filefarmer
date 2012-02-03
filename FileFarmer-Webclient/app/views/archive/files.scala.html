@@ -4,22 +4,25 @@
     <thead>
         <tr>
             <td>
+            </td>
+            <td>
                 @Messages("filename")
             </td>
             <td>
-                @Messages("fullText")
+                @Messages("creator")
             </td>
             <td>
-                @Messages("creator")
+                @Messages("insertDate")
             </td>
         </tr>
     </thead>
     <tbody>
 		@for(file <- fileSet.toList) {
 		    <tr>
+		        <td>@file.id</td>
 		        <td>@file.fileName</td>
-		        <td>@file.fullText</td>
 		        <td>@file.creator</td>
+		        <td>@file.insertDate</td>
 		    </tr>
 		}
     </tbody>

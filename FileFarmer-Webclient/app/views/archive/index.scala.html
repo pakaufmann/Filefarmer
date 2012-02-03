@@ -7,7 +7,7 @@
         <h1>@Messages("navigation")</h1>
         
         <h2>@Messages("archives")</h2>
-        <div id="archiveTree" class="subpart">
+        <div id="archiveTree" class="subpart archiveTree">
             @if(archives.isDefined) {
                 @tree(archives.get, "archives", selectedArchive)
             } else {
@@ -15,6 +15,7 @@
             }
         </div>
     </div>
+    
 	<div id="main">
         <ul>
             <li><a href="#files">@Messages("files")</a></li>
@@ -22,7 +23,13 @@
         </ul>
         
         <div id="files">
-            @files(fileSet)
+            <div id="fileTableWrapper">
+                @files(fileSet)
+            </div>
+            <div id="file">
+                <img src="" width="600" alt="" />
+            </div>
+            <div class="clear"></div>
         </div>
         <div id="search">
         </div>

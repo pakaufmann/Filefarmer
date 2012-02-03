@@ -3,6 +3,7 @@ import java.io.File
 import scala.collection.mutable.ListBuffer
 import com.novus.salat.annotations._
 import org.bson.types.ObjectId
+import java.util.Date
 
 /**
  * a file from the archive
@@ -44,5 +45,9 @@ case class ArchiveFile(@Key("_id")val id: ObjectId = new ObjectId(),
 	def getExtension() = {
 		val lastDot = fileName.lastIndexOf(".")
 		fileName.substring(lastDot + 1)
+	}
+	
+	def insertDate() = {
+		new Date(id.getTime)
 	}
 }

@@ -5,6 +5,7 @@ import ch.filefarmer.tests.BaseTestClass
 import ch.filefarmer.poso.ArchiveFile
 import java.io.File
 import ch.filefarmer.poso.Archive
+import java.util.Date
 
 @RunWith(classOf[JUnitRunner])
 class ArchiveFileTests extends BaseTestClass {
@@ -13,16 +14,15 @@ class ArchiveFileTests extends BaseTestClass {
 			val file = new ArchiveFile(_fields = collection.mutable.Map[String, String]("field1" -> "f1", "field2" -> "f2"))
 			val archive = new Archive(identity = "a", name = "a", fields = collection.mutable.Set[String]("field1", "newField"))
 			
-			file.archive = archive
+			file updateArchive archive
 			
-			file.archive should be(archive)
 			file.archiveIdentity should be (archive.identity)
 		}
 		it("should preserve the fields if they already exist") {
 			val file = new ArchiveFile(_fields = collection.mutable.Map[String, String]("field1" -> "f1", "field2" -> "f2"))
 			val archive = new Archive(identity = "a", name = "a", fields = collection.mutable.Set[String]("field1", "newField"))
 			
-			file.archive = archive
+			file updateArchive archive
 			
 			file.fields("field1") should be("f1")
 			file.fields should contain key("newField")
@@ -33,6 +33,11 @@ class ArchiveFileTests extends BaseTestClass {
 			
 			file.fileName should be("test.txt")
 			file.getExtension() should be("txt")
+		}
+		it("should return the correct insertion date") {
+			val file = new ArchiveFile(_originalFile = new File("test.txt"))
+			
+			file.insertDate should be(new Date(file.id.getTime())) 
 		}
 	}
 }

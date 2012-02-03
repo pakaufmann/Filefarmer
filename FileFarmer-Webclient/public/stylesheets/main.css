@@ -9,6 +9,11 @@ body
     font-size:12px;
 }
 
+.clear
+{
+	clear:both;
+}
+
 .green
 {
     color:#CF3;
@@ -73,12 +78,60 @@ body
 	margin-left:350px;
 }
 
-#fileTable
+#files .dataTables_scroll
 {
-    width:100%;
+    width:300px;
 }
 
-.fg-toolbar
+#files .fg-toolbar
 {
 	height:2em;
+}
+
+#files .fg-toolbar-last
+{
+	height:3em;
+}
+
+#files .fg-toolbar
+{
+	width: 296px;
+}
+
+#fileTable_next
+{
+	margin-left:5px;
+}
+
+#files tr:hover {
+	background-color:#EF9;
+	cursor:pointer;
+}
+
+#fileTable .selected, #files tr.selected:hover
+{
+	background-color:#CF3;
+	cursor:pointer;
+}
+
+#fileTableWrapper
+{
+	float:left;
+}
+
+#file
+{
+	float:left;
+	border:solid 1px black;
+	margin-left:10px;
+}
+
+#file img
+{
+	width:400px;
+}
+
+.blue
+{
+	background-color:blue;
 }

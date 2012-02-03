@@ -54,6 +54,11 @@
         <name>repo.novus rels</name>
         <url>http://repo.novus.com/snapshots/</url>
     </repository>
+    <repository>
+        <id>mygrid-repository</id>
+        <name>myGrid Repository</name>
+        <url>http://www.mygrid.org.uk/maven/repository</url>
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -125,8 +130,12 @@
 	    <groupId>com.novus</groupId>
 	    <artifactId>salat-core_2.9.0-1</artifactId>
 	    <version>0.0.8-SNAPSHOT</version>
-	   </dependency>
-	
+	 </dependency>
+     <dependency>
+        <groupId>net.java.dev.jai-imageio</groupId> 
+        <artifactId>jai-imageio-core-standalone</artifactId> 
+        <version>1.2-pre-dr-b04-2010-04-30</version> 
+     </dependency>
   </dependencies>
   
   <build>

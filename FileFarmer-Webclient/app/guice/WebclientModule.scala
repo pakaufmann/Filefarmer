@@ -9,6 +9,7 @@ class WebclientModule extends AbstractModule {
 	override def configure() = {
 		bind(classOf[Controller]).annotatedWith(Names.named("LoginController")).toInstance(LoginController)
 		bind(classOf[Controller]).annotatedWith(Names.named("ArchiveController")).toInstance(ArchiveController)
+		bind(classOf[Controller]).annotatedWith(Names.named("ArchiveFileController")).toInstance(ArchiveFileController)
 		
 		bind(classOf[ISettings]).toInstance(XmlSettings)
 	}

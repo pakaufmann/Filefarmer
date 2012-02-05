@@ -6,13 +6,17 @@ import ch.filefarmer.poso.ArchiveFile
 import java.io.File
 import ch.filefarmer.poso.Archive
 import java.util.Date
+import ch.filefarmer.poso.ArchiveField
 
 @RunWith(classOf[JUnitRunner])
 class ArchiveFileTests extends BaseTestClass {
 	describe("the archive file") {
 		it("should change the archive correctly") {
 			val file = new ArchiveFile(_fields = collection.mutable.Map[String, String]("field1" -> "f1", "field2" -> "f2"))
-			val archive = new Archive(identity = "a", name = "a", fields = collection.mutable.Set[String]("field1", "newField"))
+			
+			val archiveFields = collection.mutable.Set[ArchiveField](new ArchiveField(identity = "field1", name="field1"),
+																	 new ArchiveField(identity = "newField", name="newField"))
+			val archive = new Archive(identity = "a", name = "a", fields = archiveFields)
 			
 			file updateArchive archive
 			
@@ -20,7 +24,10 @@ class ArchiveFileTests extends BaseTestClass {
 		}
 		it("should preserve the fields if they already exist") {
 			val file = new ArchiveFile(_fields = collection.mutable.Map[String, String]("field1" -> "f1", "field2" -> "f2"))
-			val archive = new Archive(identity = "a", name = "a", fields = collection.mutable.Set[String]("field1", "newField"))
+			
+			val archiveFields = collection.mutable.Set[ArchiveField](new ArchiveField(identity = "field1", name="field1"),
+																	 new ArchiveField(identity = "newField", name="newField"))
+			val archive = new Archive(identity = "a", name = "a", fields = archiveFields)
 			
 			file updateArchive archive
 			

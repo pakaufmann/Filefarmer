@@ -131,6 +131,29 @@ body
 	width:400px;
 }
 
+#fileParams
+{
+	float:right;
+	width:480px;
+	margin-left:10px;
+}
+
+#fileParams .fileName
+{
+	padding:5px;
+	padding-left:10px;
+}
+
+#fileParams .additionalFields input, #fileParams .additionalFields dropdown 
+{
+	display:inline;
+}
+
+#fileParams .additionalFields label
+{
+	display:inline-block;
+}
+
 .blue
 {
 	background-color:blue;

@@ -10,6 +10,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import com.mongodb.casbah.gridfs.GridFS
 import ch.filefarmer.poso.Archive
+import ch.filefarmer.poso.ArchiveField
 
 @RunWith(classOf[JUnitRunner])
 class ArchiveFileRepositoryTests extends BaseRepositoryTestClass {
@@ -170,7 +171,10 @@ class ArchiveFileRepositoryTests extends BaseRepositoryTestClass {
 			    					   tiffFile = new File(currentPath + "/testFiles/test.tif"),
 			    					   _fields = scala.collection.mutable.Map("exist" -> "exist", "remove" -> "remove"))
 			rep.addFile(file)
-			val archive = new Archive(identity = "moveArchive", name = "Move Archive", fields = scala.collection.mutable.Set("exist", "new"))
+			
+			val archiveFields = scala.collection.mutable.Set(new ArchiveField(identity = "exist", name ="exist"),
+															 new ArchiveField(identity = "new", name = "new"))
+			val archive = new Archive(identity = "moveArchive", name = "Move Archive", fields = archiveFields)
 			archiveRep.addArchive(archive)
 			file.updateArchive(archive)
 			

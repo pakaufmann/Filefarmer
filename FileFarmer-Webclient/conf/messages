@@ -5,3 +5,6 @@ username=Username
 password=Password
 login=Login
 invalid_login=Wrong username or password
+fields=Fields
+fullText=Fulltext
+metainfo=Metainformation

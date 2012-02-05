@@ -118,7 +118,7 @@ class ActionTests extends BaseTestClass {
 		  Sort.sortTester = sortTester
 		  val sortDefinition = Sort to 'testArchive
 		  
-		  val retArchive = new Archive(identity = "testArchive", name = "testArchive", fields = scala.collection.mutable.Set[String]())
+		  val retArchive = new Archive(identity = "testArchive", name = "testArchive")
 		  
 		  inSequence {
 			  archive expects 'getArchive withArgs("testArchive") returning Option(retArchive)
@@ -136,7 +136,7 @@ class ActionTests extends BaseTestClass {
 		  val importFile = new ArchiveFile(_originalFile = new File("."))
 		  val sortDefinition = Sort to 'testArchive
 		  
-		  val retArchive = new Archive(identity = "default", name = "default", fields = scala.collection.mutable.Set[String]())
+		  val retArchive = new Archive(identity = "default", name = "default")
 		  
 		  inSequence {
 			  sortTester expects 'testFile withArgs(importFile) returning None

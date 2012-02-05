@@ -33,7 +33,8 @@ case class ArchiveFile(@Key("_id")val id: ObjectId = new ObjectId(),
 	
 	def updateArchive(archive:Archive) = {
 		_archiveIdentity = archive.identity
-		val newFields = collection.mutable.Map((archive.fields zip Stream.continually("") toMap).toSeq: _*);
+		val newFields = collection.mutable.Map((archive.fields zip Stream.continually("") toMap).toSeq: _*).map(f => f._1.identity -> f._2);
+		
 		_fields.foreach((f) => {
 			if(newFields.contains(f._1)) {
 				newFields += f._1 -> f._2

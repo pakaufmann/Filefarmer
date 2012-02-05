@@ -7,4 +7,4 @@ case class Archive(@Key("_id")id:ObjectId = new ObjectId(),
     			   identity:String,
     			   name:String,
     			   parentArchiveId: String = "",
-    			   fields:scala.collection.mutable.Set[String] = collection.mutable.Set[String]())
+    			   fields:scala.collection.mutable.Set[ArchiveField] = collection.mutable.Set[ArchiveField]())

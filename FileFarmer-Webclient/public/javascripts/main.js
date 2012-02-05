@@ -10,6 +10,8 @@ $(function() {
 				$.getJSON("/archives/moveFile/" + fileId + "/" + archive, function(data) {
 					table.fnDraw();
 				});
+				
+				$("#fileSettings").accordion("activate", false);
 			}
 		},
 		"themes" : {
@@ -18,6 +20,7 @@ $(function() {
 		},
 		"plugins" : ["themes", "ui", "html_data", "dnd"]
 	}).bind("select_node.jstree", function(event, data) {
+		$("#fileSettings").accordion("activate", false);
 		$("#archiveTree").jstree("toggle_node", data.rslt.obj);
 		$("#fileTable").dataTable().fnDraw();
 		$("#file img").attr("src", "");
@@ -26,6 +29,10 @@ $(function() {
 	});
 	
 	$("#main").tabs();
+	$("#fileSettings").accordion({
+		autoHeight: false,
+		collapsible: true
+	}).accordion("activate", false);
 	
 	$("#fileTable tr").live("click", function(event, ui) {
 		$("#fileTable .selected").removeClass("selected");
@@ -33,6 +40,40 @@ $(function() {
 		var data = table.fnGetData(this);
 		
 		$("#file img").attr("src", "/archives/picture/" + data[0] + ".png");
+		
+		$.getJSON("/archives/file/" + data[0], function(data) {
+			if(data.success) {
+				$("#fileParams .fileName").html(data.fileName);
+				
+				//set metadata
+				$("#fileParams .creator").html(data.creator);
+				$("#fileParams .insertDate").html(data.insertDate);
+				
+				//set fulltext
+				$("#fileParams .fullText").html(data.fullText);
+				
+				//set fields
+				$("#fileParams .additionalFields").html("");
+				
+				$(data.fields).each(function() {
+					var field = "";
+					
+					switch(this.fieldType) {
+						case "text":
+							field = new TextField();
+							break;
+						case "dropdown":
+							field = new DropdownField();
+							break;
+					}
+					
+					$("#fileParams .additionalFields").append("<div>" + field.createField(this.id, this.name, this.values, this.value) + "</div>");
+					$("#fileSettings").accordion("activate", 0);
+				});
+			} else {
+				$("#fileParams .fileName").text("An error occurred")
+			}
+		});
 		
 		$(this).addClass('selected');
 	});

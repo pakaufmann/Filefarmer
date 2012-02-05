@@ -5,11 +5,13 @@ import com.mongodb.casbah.commons.MongoDBObject
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import ch.filefarmer.repositories._
+import ch.filefarmer.poso.ArchiveField
 
 @RunWith(classOf[JUnitRunner])
 class ArchiveRepositoryTests extends BaseRepositoryTestClass {
-	
-	val archive = new Archive(identity = "archive", name = "archive", fields = collection.mutable.Set[String]("field1", "field2"))
+	val archiveFields = collection.mutable.Set(new ArchiveField(identity = "field1" , name = "field1"),
+											   new ArchiveField(identity = "field2", name = "field2"))
+	val archive = new Archive(identity = "archive", name = "archive", fields = archiveFields)
   
 	describe("the archive repository") {
 		it("should add an archive") {
@@ -25,7 +27,7 @@ class ArchiveRepositoryTests extends BaseRepositoryTestClass {
 		it("should throw an exception if no identity is defined") {
 			conn stubs 'connection returning mongoDB
 			val rep  = new ArchiveRepository(conn)
-			val arch = new Archive(identity = "", name = "name", fields = collection.mutable.Set[String]())
+			val arch = new Archive(identity = "", name = "name")
 			
 			val thrown = evaluating { rep.addArchive(arch) } should produce[ArgumentInvalidException]
 			thrown.getMessage should equal ("no identity added")
@@ -33,7 +35,7 @@ class ArchiveRepositoryTests extends BaseRepositoryTestClass {
 		it("should throw an exception if no name is defined") {
 			conn stubs 'connection returning mongoDB
 			val rep  = new ArchiveRepository(conn)
-			val arch = new Archive(identity = "id", name = "", fields = collection.mutable.Set[String]())
+			val arch = new Archive(identity = "id", name = "")
 			
 			val thrown = evaluating { rep.addArchive(arch) } should produce[ArgumentInvalidException]
 			thrown.getMessage should equal ("no name added")
@@ -41,7 +43,7 @@ class ArchiveRepositoryTests extends BaseRepositoryTestClass {
 		it("should throw an exception if it already exists") {
 			conn stubs 'connection returning mongoDB
 			val rep  = new ArchiveRepository(conn)
-			val arch = new Archive(identity = "identity", name = "name", fields = collection.mutable.Set[String]())
+			val arch = new Archive(identity = "identity", name = "name")
 			rep.addArchive(arch)
 			
 			val thrown = evaluating { rep.addArchive(arch) } should produce[DuplicateException]

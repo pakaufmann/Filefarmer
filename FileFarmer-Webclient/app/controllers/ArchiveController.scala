@@ -37,13 +37,6 @@ object ArchiveController extends Controller {
 		}
 	}
 	
-	implicit object MoveFileFormat extends Format[Boolean] {
-		def reads(json: JsValue): Boolean = (json \ "success").as[Boolean]
-		def writes(s: Boolean): JsValue = {
-			JsObject(Map("success" -> JsBoolean(s)))
-		}
-	}
-	
 	def index() = Action {
 		val files = archiveFileRepository.getFilesForArchive(settings.defaultArchive.name)
 		val archives = archiveRepository.getArchiveTree()
@@ -63,34 +56,5 @@ object ArchiveController extends Controller {
 	  	val numberOfFilesInArchive = archiveFileRepository.getNumberOfFilesForArchive(archive)
 	  	
 	  	Ok(toJson((files, numberOfFilesInArchive)))
-	}
-	
-	def getPicture(id: String) = Action { response =>
-		val output = new java.io.ByteArrayOutputStream()
-		val imgOption = archiveFileRepository.getImageOfFile(id)
-		
-		if(imgOption.isDefined) {
-		  	ImageIO.write(imgOption.get, "png", output)
-		} else {
-			val image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB)
-			val g = image.getGraphics()
-			g.drawString("Image not found", 10, 10)
-			ImageIO.write(image, "png", output)
-		}
-		
-		Ok(output.toByteArray()).as("image/png")
-	}
-	
-	def moveFile(id: String, archive: String) = Action {
-		val file = archiveFileRepository.getFile(id)
-		val moveArchive = archiveRepository.getArchive(archive)
-		if(file.isDefined && moveArchive.isDefined) {
-			val f = file.get
-			f.updateArchive(moveArchive.get)
-	  		val success = archiveFileRepository.updateFile(f)
-	  		Ok(toJson(success))
-		} else {
-			Ok(toJson(false))
-		}
 	}
 }
